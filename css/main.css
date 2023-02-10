@@ -1,0 +1,139 @@
+:root{--font: 'Roboto Slab', serif;} 
+
+body {
+    font-family: var(--font);
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.album_art__full {
+    width: 500px;
+    height: 500px;
+    position: relative;
+}
+
+.album_art__full img {
+    width: 100%;
+    height: 100%;
+}
+
+#btnShuffle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #f2f2f2;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.playlist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.track__item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.track__item:hover {
+    background-color: #dfdede;
+}
+.track__item:focus {
+    background-color: blue;
+}
+
+.track__thumb {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.track__thumb img {
+    width: 100%;
+    height: 100%;
+    border-radius: 95%;
+}
+
+.track__details {
+    flex: 1;
+    padding-right: 10px;
+}
+
+.track__title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.track__artist {
+    font-size: 1rem;
+    color: #999;
+}
+
+.track__time {
+    font-size: 1.2rem;
+    color: #999;
+}
+
+.progress {
+    width: 100%;
+    height: 10px;
+    background-color: #ccc;
+    position: relative;
+}
+
+.played {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 100%;
+    background-color: #000;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 150px;
+}
+
+#btnPrev, #btnPlay, #btnNext {
+    background-color: #f2f2f2;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+}
+
+.times {
+    font-size: 1.2rem;
+    color: #999;
+}

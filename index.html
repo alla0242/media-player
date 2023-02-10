@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.png">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="/js/main.js"></script>
+    <!-- ADD CONTENT SECURITY POLICY -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <title>Mat's Media Player</title>
+</head>
+<body>
+    <header>
+        <h1>Mat's Media Player</h1>
+    </header>
+    <main>
+        <div class="album_art__full">
+            <img src="#" alt="full album art" />
+            <button id="btnShuffle" title="shuffle"><i class="material-symbols-rounded">shuffle</i></button>
+        </div>
+        <ul class="playlist">
+            <li class="track__item" onclick="displayArt()">
+                <div class="track__thumb">
+                    <img src="/img/small/basement-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Blooba Doop Scooba</p>
+                    <p class="track__artist">Danny Baranowsky</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">04:49</time>
+                </div>
+            </li>
+
+            <li class="track__item" onclick="displayArt()">
+                <div class="track__thumb">
+                    <img src="/img/small/black-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">What a Horrible Night(to Have a Curse)</p>
+                    <p class="track__artist">The Black Dahlia Murder</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">04:02</time>
+                </div>
+            </li>
+
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="/img/small/dan-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">In the Aeroplane Over the Sea</p>
+                    <p class="track__artist">Dan Mangan</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">03:39</time>
+                </div>
+            </li>
+
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="/img/small/dead-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Pull My Strings</p>
+                    <p class="track__artist">Dead Kennedys</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">05:52</time>
+                </div>
+            </li>
+
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="/img/small/guthrie-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Ner Ner</p>
+                    <p class="track__artist">Guthrie Govan</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">08:04</time>
+                </div>
+            </li>
+
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="/img/small/nick-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Sandmonster</p>
+                    <p class="track__artist">Nick Johnston</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">03:24</time>
+                </div>
+            </li>
+
+            <li class="track__item">
+                <div class="track__thumb">
+                    <img src="/img/small/shrunk-small.png" alt="artist album art thumbnail" />
+                </div>
+                <div class="track__details">
+                    <p class="track__title">Shrunk</p>
+                    <p class="track__artist">Aesop Rock</p>
+                </div>
+                <div class="track__time">
+                    <time datetime="">03:08</time>
+                </div>
+            </li>
+        </ul>
+    </main>
+    <section class="progress">
+        <div class="played"></div>
+    </section>
+    <footer>
+        <div class="controls">
+            <button id="btnPrev" title="previous track"><i class="material-symbols-rounded">skip_previous</i></button>
+            <button id="btnPlay" title="play | pause"><i class="material-symbols-rounded">play_arrow</i></button>
+            <button id="btnNext" title="next track"><i class="material-symbols-rounded">skip_next</i></button>
+        </div>
+        <div class="times">
+            <time datetime="" class="current-time">00:00</time> &nbsp;|&nbsp;
+            <time datetime="" class="total-time">00:00</time>
+        </div>
+        </footer>
+</body>
+</html>
