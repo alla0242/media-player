@@ -24,7 +24,7 @@ document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurr
   ,
   buildPlaylist: () => { MEDIA.forEach(item => {document.getElementById('playlist').innerHTML += `<li class="track__item" id="track__item">
                 <div class="track__thumb">
-                    <img src="/img/small/${item.thumbnail}" alt="artist album art thumbnail" />
+                    <img src="./img/small/${item.thumbnail}" alt="artist album art thumbnail" />
                 </div>
                 <div class="track__details">
                     <p class="track__title">${item.title}</p>
@@ -54,8 +54,8 @@ document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurr
     //read the contents of MEDIA and create the playlist
   },
   loadCurrentTrack: () => { document.getElementById("album__art_full").innerHTML = 
-`<div class="album_art__full"><img src="/img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
-      APP.audio = new Audio(`/media/${MEDIA[APP.currentTrack].track}`);
+`<div class="album_art__full"><img src="./img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
+      APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
       APP.convertTimeDisplay();
 
     //use the currentTrack value to set the src of the APP.audio element
