@@ -7,13 +7,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const APP = {
-  audio: new Audio(), //the Audio Element that will play every track
-  currentTrack: 0, //the integer representing the index in the MEDIA array
+  audio: new Audio(), 
+  currentTrack: 0, 
   init: () => {
     APP.buildPlaylist();
     APP.addListeners();
     APP.loadCurrentTrack;
     APP.play;
+    
 
   },
   addListeners: () => {
@@ -31,7 +32,7 @@ document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurr
                     <p class="track__artist">${item.artist}</p>
                 </div>
                 <div class="track__time">
-                    <time datetime="">00:00</time>
+                    <time id="playlistItem" datetime="">00:00</time>
                 </div>
             </li>`;
             let items = document.querySelectorAll("#playlist li"),
@@ -46,19 +47,20 @@ document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurr
               index = tab.indexOf(this.innerHTML);
               //  console.log(this.innerHTML + " Index = " + index);
               APP.currentTrack = index;
-          console.log(`${APP.currentTrack}`)
+          // console.log(`${APP.currentTrack} ${document.getElementById("playlistItem").getAttribute('datetime')}`)
+
+          console.log(`${APP.currentTrack} ${document.getElementById("playlistItem").getAttribute('datetime')}`)
 
             };};
-          
           })
     //read the contents of MEDIA and create the playlist
   },
   loadCurrentTrack: () => { document.getElementById("album__art_full").innerHTML = 
 `<div class="album_art__full"><img src="./img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
+
       APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
       APP.convertTimeDisplay();
-
-    //use the currentTrack value to set the src of the APP.audio element
+  
   },
   play: () => {
     if(document.getElementById('btnPlay').innerHTML == '<i class="material-symbols-rounded">play_arrow</i>'){document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">pause</i>`;APP.audio.play()}
@@ -70,6 +72,8 @@ document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurr
     if(document.getElementById('btnPlay').innerHTML == '<i class="material-symbols-rounded">pause</i>'){document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">play_arrow</i>`;APP.audio.pause()};
   },
   convertTimeDisplay: () => {
+document.getElementById("playlistItem").setAttribute("datetime", 'test')
+          console.log(APP.audio.duration);
 
     //convert the seconds parameter to `00:00` style display
   },
