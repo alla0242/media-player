@@ -32,7 +32,7 @@ const MEDIA = [
     title: 'Ner Ner',
     track: 'guthrie_govan_ner_ner.mp3',
     thumbnail: 'guthrie-small.png',
-    large: 'nick-large.png',
+    large: 'guthrie-large.png',
   },
     {
     artist: 'Nick Johnston',
