@@ -10,6 +10,7 @@ const APP = {
   audio: 0, 
   currentTrack: 0, 
   currentTrackDuration: 0,
+  tab: [],
   tempAudio: [],
   trackArray: [],
   init: () => {
@@ -32,12 +33,14 @@ document.getElementById('btnPlay').addEventListener("click", APP.play);
 // document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurrentTrack);
 }
   ,
-  buildPlaylist: () => { MEDIA.forEach(item => {
+  buildPlaylist: () => { MEDIA.forEach(item => {console.log(item)
 
     APP.tempAudio.push(new Audio(`./media/${item.track}`));
     // itemLENGTH = document.getElementsByClassName('audio')
     APP.trackArray.push(item.track);
-    document.getElementById('playlist').innerHTML += `<li class="track__item" id="track__item">
+    let playlist = document.getElementById('playlist');
+    
+    playlist.innerHTML += `<li class="track__item" id="track__item">
                 <div class="track__thumb">
                     <img src="./img/small/${item.thumbnail}" alt="artist album art thumbnail" />
                 </div>
@@ -45,7 +48,8 @@ document.getElementById('btnPlay').addEventListener("click", APP.play);
                     <p class="track__title">${item.title}</p>
                     <p class="track__artist">${item.artist}</p>
                 </div>`;
-
+                
+    
             
             
 
@@ -70,21 +74,24 @@ document.getElementById('btnPlay').addEventListener("click", APP.play);
               console.log(APP.trackArray)
               console.log(MEDIA[APP.currentTrack].large)
               console.log(`./media/${APP.trackArray[index]}`)
-               document.getElementById("album__art_full").innerHTML = 
-              `<div class="album_art__full"><img src="./img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
-              APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
+              //  document.getElementById("album__art_full").innerHTML = 
+              // `<div class="album_art__full"><img src="./img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
+              // APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
               // console.log(APP.audio.duration)
               
             };};
-            console.log('test')
+            console.log(`test`)
 
-          });            document.getElementById('playlist').innerHTML = `
+          }); playlist.append() += `
           <div class="track__time">
               <time id="playlistItem" datetime="">${APP.tempAudio[index].duration}</time>
           </div>
-      </li>`
+      </li>` 
   },
   loadCurrentTrack: () => { 
+                   document.getElementById("album__art_full").innerHTML = 
+              `<div class="album_art__full"><img src="./img/large/${MEDIA[APP.currentTrack].large}" alt="full album art" />`;
+              APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
     // APP.audio = new Audio(`./media/${MEDIA[APP.currentTrack].track}`);
 //   document.getElementById("playlistItem").innerText = `${APP.audio.duration}`;
 //   document.getElementById("album__art_full").innerHTML = 
@@ -103,6 +110,12 @@ document.getElementById('btnPlay').addEventListener("click", APP.play);
   pause: () => {
     //pause the track loaded into APP.audio playing
     if(document.getElementById('btnPlay').innerHTML == '<i class="material-symbols-rounded">pause</i>'){document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">play_arrow</i>`;APP.audio.pause()};
+  },
+  previous: () => {
+
+  },
+  next: () => {
+    
   },
   convertTimeDisplay: () => {
     
