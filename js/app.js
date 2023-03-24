@@ -8,16 +8,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 const APP = {
   audio: '',
+  currentTrack: 0,
+  shuffle: false,
+  trackArray: [],
   index: '',
   songs: [],
+  percentage: 0,
   //temp audio holds an array of the APP.audio for each MEDIA.item
   init: () => {
     // APP.defaults();
-    // APP.buildTrackDurationArray();
+    //TODO: Add default
+    //TODO: Add looping to first track
+    //TODO: Add current time
+    //TODO: 
     APP.buildSongs();
     APP.addListeners();
-    // APP.buildPlaylist();
-    // APP.addListeners();
     // APP.convertTimeDisplay();
   },
 
@@ -25,11 +30,14 @@ const APP = {
 
   },
   addListeners: () => {
-document.querySelectorAll('li').forEach(li => li.addEventListener('click', console.log(`fdsaklfhdsa`)));
-    // document.querySelectorAll("track__item").addEventListener('click', APP.loadCurrentTrack)
-// document.querySelectorAll('li').forEach(li => li.addEventListener('click', APP.loadCurrentTrack));
+document.getElementById('btnPrev').addEventListener('click', APP.previous);
+document.getElementById('btnNext').addEventListener('click', APP.next);
+document.getElementById('btnShuffle').addEventListener('click', APP.shuffleOnOff);
+// APP.audio.addEventListener("onended", () => {APP.next})
+//TODO: ADD shuffle button
+//TODO: Add event listener audio.end APP.next();
+
 document.getElementById('btnPlay').addEventListener("click", APP.play);
-// document.querySelectorAll("#playlist li").addEventListener('click', APP.loadCurrentTrack);
 },
 
 buildSongs: () => {
@@ -47,7 +55,8 @@ buildSongs: () => {
         track: `${item.track}`,
         duration: duration,
         minutes: minutes,
-        seconds: seconds
+        seconds: seconds,
+        durationString: `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
       });
       let playlist = document.getElementById('playlist');
       let durationString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
@@ -69,9 +78,13 @@ buildSongs: () => {
       APP.getClickedIndex();
     }
     newAudio.addEventListener('canplaythrough', findAudio);
+    newAudio.addEventListener('change', (event) => {APP.convertTimeDisplay})
+console.log(newAudio)
+
   });
 },
 getClickedIndex: () => {
+
   const trackItems = document.querySelectorAll('.track__item');
   trackItems.forEach((item, index) => {
     item.addEventListener('click', () => {
@@ -79,16 +92,15 @@ getClickedIndex: () => {
       console.log(`Clicked index: ${index}`);
       document.getElementById("album__art_full").innerHTML = 
               `<div class="album_art__full"><img src="./img/large/${APP.songs[index].album}" alt="full album art" />`;
-
-
+      APP.currentTrack = index;
       let minutes = APP.songs[index].minutes;
       let seconds = APP.songs[index].seconds;
       let durationString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
       APP.audio = new Audio(`./media/${APP.songs[index].track}`);
       document.getElementById('total-time').innerHTML = `${durationString}`;
-
-
-
+      document.getElementById('current-time').innerHTML = '0:00';
+      APP.play();
+    APP.convertTimeDisplay();
 
 
     });
@@ -96,29 +108,82 @@ getClickedIndex: () => {
 },
   play: () => {
     if(document.getElementById('btnPlay').innerHTML == '<i class="material-symbols-rounded">play_arrow</i>'){document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">pause</i>`;APP.audio.play()}
-    else{document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">play_arrow</i>`;APP.audio.pause()}
-    //start the track loaded into APP.audio playing
+    else{document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">play_arrow</i>`;APP.audio.pause()};
+  clearInterval(APP.convertTimeDisplay);
+    APP.convertTimeDisplay();
   },
   pause: () => {
-    //pause the track loaded into APP.audio playing
     if(document.getElementById('btnPlay').innerHTML == '<i class="material-symbols-rounded">pause</i>'){document.getElementById('btnPlay').innerHTML = `<i class="material-symbols-rounded">play_arrow</i>`;APP.audio.pause()};
   },
   previous: () => {
-    document.getElementById('btnPrev').addEventListener('click', ()=>{
-      APP.pause;
-
-    })
+      APP.pause();
+      console.log();
+      APP.currentTrack--;
+      console.log(APP.songs)
+      document.getElementById("album__art_full").innerHTML = 
+              `<div class="album_art__full"><img src="./img/large/${APP.songs[APP.currentTrack].album}" alt="full album art" />`;
+      document.getElementById('total-time').innerHTML = `${APP.songs[APP.currentTrack].durationString}`;
+      APP.audio =  new Audio(`./media/${APP.songs[APP.currentTrack].track}`);
   },
   next: () => {
-    
+          APP.pause();
+          if(APP.currentTrack == 6){
+            APP.currentTrack = 0;
+    document.getElementById("album__art_full").innerHTML = 
+              `<div class="album_art__full"><img src="./img/large/${APP.songs[APP.currentTrack].album}" alt="full album art" />`;
+      document.getElementById('total-time').innerHTML = `${APP.songs[APP.currentTrack].durationString}`;
+      APP.audio =  new Audio(`./media/${APP.songs[APP.currentTrack].track}`);
+          }
+          if(APP.shuffle == false){
+      APP.currentTrack++;
+    document.getElementById("album__art_full").innerHTML = 
+              `<div class="album_art__full"><img src="./img/large/${APP.songs[APP.currentTrack].album}" alt="full album art" />`;
+      document.getElementById('total-time').innerHTML = `${APP.songs[APP.currentTrack].durationString}`;
+      APP.audio =  new Audio(`./media/${APP.songs[APP.currentTrack].track}`);
+    }else if(APP.shuffle == true){
+        let shuffleSong = Math.floor(Math.random() * 8);
+        APP.currentTrack = APP.currentTrack[shuffleSong];
+        document.getElementById("album__art_full").innerHTML = 
+              `<div class="album_art__full"><img src="./img/large/${APP.songs[APP.currentTrack].album}" alt="full album art" />`;
+      document.getElementById('total-time').innerHTML = `${APP.songs[APP.currentTrack].durationString}`;
+      APP.audio =  new Audio(`./media/${APP.songs[APP.currentTrack].track}`);
+      }
+      console.log(APP.songs)
+  },autoNext: () => {
+    if(APP.shuffle == false && APP.audio.currentTime == APP.audio.duration){APP.next()}
+  else if(APP.shuffle == true &&  APP.audio.currentTime == APP.audio.duration
+    ){//math.random the next track
+      function callRandomly(func, maxCalls) {
+  const randomCalls = Math.floor(Math.random() * maxCalls);
+  for (let i = 0; i < randomCalls; i++) {
+    func();
+  }
+}
+callRandomly(APP.next(), i);
+
+    }
   },
   convertTimeDisplay: () => {
-    
-    
-    let playlist = document.querySelectorAll("#playlist li");playlist.forEach(element => {console.log(APP.tempAudio[index].duration)})
-// document.getElementById("playlistItem").setAttribute("datetime", 'test')
-          // console.log(APP.audio.duration);
+setInterval(() => {
+let prePercentage = (APP.audio.currentTime / APP.audio.duration);
+APP.percentage = Math.round(prePercentage * 100)
+            let minutes = Math.floor(APP.audio.currentTime / 60);
+      let seconds = Math.ceil(APP.audio.currentTime % 60);
+      let durationString = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+console.log((APP.percentage));
+      document.getElementById('current-time').innerHTML = durationString;
+          document.getElementById("played").style.width = `${APP.percentage}%`
+}, 1000);
 
-    //convert the seconds parameter to `00:00` style display
+
+if(APP.audio.currentTime == APP.audio.duration){APP.next()}
   },
+  shuffleOnOff: () => {
+    if(APP.shuffle == false){APP.shuffle = true}
+    else{APP.shuffle = false}
+  }
+  ,progressBar: () =>
+ {
+  document.getElementById('progress').addEventListener
+ }
 };

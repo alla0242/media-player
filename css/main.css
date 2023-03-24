@@ -87,7 +87,7 @@ main {
 }
 
 .progress {
-    width: 100%;
+    width: 100vw;
     height: 10px;
     background-color: #ccc;
     position: relative;
