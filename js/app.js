@@ -72,7 +72,7 @@ const APP = {
     });
     document.getElementById(
           "album__art_full"
-        ).innerHTML = `<div class="album_art__full"><img src="./img/baby-dancing-baby.gif" alt="full album art" />`;
+        ).innerHTML = `<div class="album_art__full"><img src="./img/baby-dancing-baby.gif" alt="full album art" />Couldn't figure out how to add album art on load so...`;
 
   },
   getClickedIndex: () => {
@@ -80,7 +80,6 @@ const APP = {
     trackItems.forEach((item, index) => {
       item.addEventListener("click", () => {
         APP.pause();
-        console.log(`Clicked index: ${index}`);
         document.getElementById(
           "album__art_full"
         ).innerHTML = `<div class="album_art__full"><img src="./img/large/${APP.songs[index].album}" alt="full album art" />`;
@@ -125,9 +124,7 @@ const APP = {
   },
   previous: () => {
     APP.pause();
-    console.log();
     APP.currentTrack--;
-    console.log(APP.songs);
     document.getElementById(
       "album__art_full"
     ).innerHTML = `<div class="album_art__full"><img src="./img/large/${
@@ -169,7 +166,6 @@ const APP = {
       let shuffledSong = shuffleSong();
       //Could add an if to see if CurrentTrack is same as shuffledSong
       APP.currentTrack = shuffledSong;
-      console.log(APP.currentTrack);
       document.getElementById(
         "album__art_full"
       ).innerHTML = `<div class="album_art__full"><img src="./img/large/${
@@ -197,7 +193,6 @@ const APP = {
       let minutes = Math.floor(APP.audio.currentTime / 60);
       let seconds = Math.ceil(APP.audio.currentTime % 60);
       let durationString = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-      console.log(APP.audio.currentTime == APP.audio.duration);
       document.getElementById("current-time").innerHTML = durationString;
       document.getElementById("played").style.width = `${APP.percentage}%`;
       if (APP.audio.currentTime == APP.audio.duration) {
